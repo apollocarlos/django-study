@@ -25,4 +25,4 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def __str__(self):
-        return "%s: %s" % (self.id, self.choice_text)
+        return '{}: {}: {}: {}'.format(self.id, self.choice_text, self.votes, self.question)
