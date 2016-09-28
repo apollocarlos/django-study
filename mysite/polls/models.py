@@ -4,6 +4,7 @@ import datetime
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
+from geoposition.fields import GeopositionField
 
 
 @python_2_unicode_compatible
@@ -27,3 +28,12 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+@python_2_unicode_compatible
+class Zone(models.Model):
+    name = models.CharField(max_length=50)
+    position = GeopositionField()
+
+    def __str__(self):
+        return self.name

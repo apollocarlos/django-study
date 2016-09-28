@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import Question, Choice
+from .models import Question, Choice, Zone
 
 
 def index(request):
@@ -38,3 +38,13 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def zonelist(request):
+    zones = Zone.objects.order_by('name')
+    return render(request, 'polls/zone.html', {'zones': zones})
+
+
+def zonedetail(request, zone_name):
+    zone = Zone.objects.get(name=zone_name)
+    return render(request, 'polls/zonedetail.html', {'zone': zone})

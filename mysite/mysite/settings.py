@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'geoposition',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# for geoposition
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyA27Csv362mBdCLrbDy8_Y07hfDiG-KyF8'

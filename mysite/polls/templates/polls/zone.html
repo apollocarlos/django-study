@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Map</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+            var map;
+            function initMap() {
+                center_pos = {
+                    lat: 36.456,
+                    lng: 138.295
+                };
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: center_pos,
+                    zoom: 6,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                });
+
+                setMarkers(map);
+            }
+
+            function setMarkers(map) {
+                {% for zone in zones %}
+                var icon = {
+                    url: '/static/polls/image/background.png',
+                    scaledSize: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 30)
+                };
+                var pos = {
+                    lat: {{ zone.position.latitude }},
+                    lng: {{ zone.position.longitude }}
+                };
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: pos,
+                    icon: icon,
+                });
+                // if you don't do like below, infowindow will show only last info.
+                marker['infowindow'] = new google.maps.InfoWindow({
+                    content: '{{ forloop.counter }}<p><a href="{% url 'polls:zonedetail' zone.name %}"> {{ zone.name }}</a>',
+                });
+                marker.addListener('click', function() {
+                    this.infowindow.open(map, this);
+                });
+                {% endfor %}
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA27Csv362mBdCLrbDy8_Y07hfDiG-KyF8&callback=initMap"
+                async defer></script>
+    </body>
+</html>
