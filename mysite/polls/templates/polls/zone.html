@@ -17,20 +17,18 @@
     </head>
     <body>
         <div id="map"></div>
-        <script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA27Csv362mBdCLrbDy8_Y07hfDiG-KyF8&callback=initMap" async defer></script>
+        <script type="text/javascript">
+
             var map;
             function initMap() {
-                center_pos = {
-                    lat: 36.456,
-                    lng: 138.295
-                };
-
+                var center_pos = new google.maps.LatLng(36.456, 138.295);
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: center_pos,
                     zoom: 6,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    // https://snazzymaps.com/
+                    styles: [{"featureType":"landscape","stylers":[{"saturation":-7},{"gamma":1.02},{"hue":"#ffc300"},{"lightness":-10}]},{"featureType":"road.highway","stylers":[{"hue":"#ffaa00"},{"saturation":-45},{"gamma":1},{"lightness":-4}]},{"featureType":"road.arterial","stylers":[{"hue":"#ffaa00"},{"lightness":-10},{"saturation":64},{"gamma":0.9}]},{"featureType":"road.local","stylers":[{"lightness":-5},{"hue":"#00f6ff"},{"saturation":-40},{"gamma":0.75}]},{"featureType":"poi","stylers":[{"saturation":-30},{"lightness":11},{"gamma":0.5},{"hue":"#ff8000"}]},{"featureType":"water","stylers":[{"hue":"#0077ff"},{"gamma":1.25},{"saturation":-22},{"lightness":-31}]}],
                 });
-
                 setMarkers(map);
             }
 
@@ -49,7 +47,7 @@
                 var marker = new google.maps.Marker({
                     map: map,
                     position: pos,
-                    icon: icon,
+                    //icon: icon,
                 });
                 // if you don't do like below, infowindow will show only last info.
                 marker['infowindow'] = new google.maps.InfoWindow({
@@ -61,7 +59,5 @@
                 {% endfor %}
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA27Csv362mBdCLrbDy8_Y07hfDiG-KyF8&callback=initMap"
-                async defer></script>
     </body>
 </html>
